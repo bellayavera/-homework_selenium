@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="first" />
         <module name="maven3" />
+        <module name="maven" />
       </profile>
     </annotationProcessing>
   </component>
