@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 
-public class FirstTest {
+public class StickerTest {
 
     public WebDriver driver;
     public WebDriverWait wait;
