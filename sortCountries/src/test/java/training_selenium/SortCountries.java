@@ -68,10 +68,9 @@ public class SortCountries {
         List<String> geoZones = new ArrayList<>();
         for (int i = 0; i < geoCountries.size(); i++) {
             geoCountries.get(i).click();
-            List<WebElement> zones = driver.findElements(By.cssSelector("#table-zones tbody tr:not(tr:first-child) td:nth-child(3) select"));
+            List<WebElement> zones = driver.findElements(By.cssSelector("#table-zones tbody tr:not(tr:first-child) td:nth-child(3) select option[selected]"));
             for (int j = 0; j < zones.size(); j++) {
-                Select select = new Select(zones.get(j));
-                geoZones.add(select.getFirstSelectedOption().getText());
+                geoZones.add(zones.get(j).getText());
             }
             List<String> sortGeoZones = new ArrayList<>(geoZones);
             sortGeoZones.sort(String.CASE_INSENSITIVE_ORDER);
