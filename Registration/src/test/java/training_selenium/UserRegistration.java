@@ -5,8 +5,7 @@ import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.junit.Test;
 import java.util.Random;
@@ -18,7 +17,7 @@ public class UserRegistration {
 
     @Before
     public void start() {
-        driver = new ChromeDriver();
+        driver = new FirefoxDriver();
         wait = new WebDriverWait(driver, 20);
     }
 
@@ -33,9 +32,9 @@ public class UserRegistration {
         driver.findElement(By.cssSelector("tr:nth-child(4) td:nth-child(1) input[type=text]")).sendKeys("12345");
         driver.findElement(By.cssSelector("tr:nth-child(4) td:nth-child(2) input[type=text]")).sendKeys("Saratov");
 
-        WebElement selectElemCountry = driver.findElement(By.cssSelector("select.select2-hidden-accessible"));
-        Select selectCountry = new Select(selectElemCountry);
-        selectCountry.selectByVisibleText("United States");
+        WebElement selectElemCountry = driver.findElement(By.cssSelector("span.select2-selection__arrow"));
+        selectElemCountry.click();
+        driver.findElement(By.cssSelector("li:nth-child(225)")).click();
 
         WebElement selectElemState =driver.findElement(By.cssSelector("tr:nth-child(5) td:nth-child(2)"));
         selectElemState.click();
