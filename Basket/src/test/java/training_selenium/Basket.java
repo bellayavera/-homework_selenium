@@ -27,7 +27,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
     @Test
     public void testCart()  {
-        int n = 5;
+        int n = 3;
         List<String> elements = new ArrayList<>();
         driver.get("http://localhost/litecart/en/");
         for (int i = 0; i < n; i++) {
