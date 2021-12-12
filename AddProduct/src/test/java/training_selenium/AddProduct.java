@@ -67,6 +67,10 @@ public class AddProduct {
         driver.findElement(By.cssSelector("#tab-prices tr:nth-child(2) input[type=text]")).sendKeys("10");
         driver.findElement(By.cssSelector("#tab-prices tr:nth-child(3) input[type=text]")).sendKeys("7");
         driver.findElement(By.cssSelector("p button:nth-child(1)")).click();
+
+
+        //проверка появления в каталоге
+        driver.findElement(By.linkText("Chicken"));
     }
 
     private void login() {
