@@ -4,12 +4,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.junit.Test;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
+
+import static org.junit.Assert.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 public class AddProduct {
@@ -27,6 +28,7 @@ public class AddProduct {
     public void addNewProduct() throws URISyntaxException {
         login();
         driver.get("http://localhost/litecart/admin/?app=catalog&doc=catalog");
+        int items = driver.findElements(By.linkText("Chicken")).size();
         //заполнение вкладки General
         driver.findElement(By.cssSelector("#content div a:nth-child(2)")).click();
         driver.findElement(By.cssSelector("#tab-general label:nth-child(3)")).click();
@@ -70,7 +72,8 @@ public class AddProduct {
 
 
         //проверка появления в каталоге
-        driver.findElement(By.linkText("Chicken"));
+        int itemsNew = driver.findElements(By.linkText("Chicken")).size();
+        assertEquals(1, (itemsNew - items));
     }
 
     private void login() {
