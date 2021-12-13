@@ -52,9 +52,9 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
         }
         driver.findElement(By.cssSelector("#cart a.link")).click();
         driver.findElement(By.cssSelector("li.shortcut:nth-child(1) a")).click();
-        for (int j = 0; j < n; j++) {
+        for (int j = 0; j < 3; j++) {
             WebElement table = wait.until(presenceOfElementLocated(By.cssSelector("#order_confirmation-wrapper")));
-            driver.findElement(By.cssSelector("li:nth-child(1) p:nth-child(4) button")).click();
+            driver.findElement(By.name("remove_cart_item")).click();
             wait.until(stalenessOf(table));
         }
         }
