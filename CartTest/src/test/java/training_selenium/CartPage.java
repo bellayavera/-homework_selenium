@@ -22,6 +22,10 @@ public class CartPage extends Page {
         wait.until(stalenessOf(table));
     }
 
+    public Integer quantityProducts() {
+        return Integer.parseInt(driver.findElement(By.cssSelector("span.quantity")).getAttribute("textContent"));
+    }
+
 }
 
 

@@ -5,35 +5,38 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Application {
-    private WebDriverWait wait;
-    private WebDriver driver;
-    private HomePage homePage;
-    private ProductPage productPage;
-    private CartPage cartPage;
-    
-    public Application(){
+    private final WebDriverWait wait;
+    private final WebDriver driver;
+    private final HomePage homePage;
+    private final ProductPage productPage;
+    private final CartPage cartPage;
+    private int n = 0;
+
+    public Application() {
         driver = new ChromeDriver();
         homePage = new HomePage(driver);
         productPage = new ProductPage(driver);
         cartPage = new CartPage(driver);
-        wait = new WebDriverWait(driver,10);
+        wait = new WebDriverWait(driver, 10);
     }
 
     public void quit() {
         driver.quit();
     }
 
-    public void addAndRemoveProductsFromCart() {
-        int n = 3;
+
+        public void addItemsToCart(int m){ // m - количество товаров,которые надо добавить
+         n = m;// n - счетчик неодинаковых товаров (сколько раз нажмем на кнопку remove)
         homePage.open();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < m; i++) {
+            ;
             homePage.addElementsTitlesInList();
             homePage.getElement().click();
             if (productPage.isSelectPresent()) {
                 productPage.selectProperty();
             }
             productPage.addInCart(i);
-            if (i == 2) {
+            if (i == m-1) {
                 break;
             }
             homePage.open();
@@ -44,10 +47,28 @@ public class Application {
                 }
             }
         }
+
+    }
+
+    public void removeAllItemsFromCart() {
         cartPage.openCart();
         for (int j = 0; j < n; j++) {
             cartPage.removeProduct();
         }
     }
+
+    public int countItemsInCart(){
+        homePage.open();
+        return cartPage.quantityProducts();
+    }
+
+
+
+
+
+
+
+
+
 }
 
