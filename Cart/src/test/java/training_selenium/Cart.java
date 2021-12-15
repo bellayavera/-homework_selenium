@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 
+import static junit.framework.TestCase.assertEquals;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
  public class Cart {
@@ -27,7 +28,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
     @Test
     public void testCart()  {
-        int n = 3;
+        int n = 3; // n - счетчик неодинаковых товаров (считает сколько раз нужно нажать кнопку remove в корзине)
         List<String> elements = new ArrayList<>();
         driver.get("http://localhost/litecart/en/");
         for (int i = 0; i < 3; i++) {
@@ -38,6 +39,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
                 driver.findElement(By.cssSelector("select")).click();
                 driver.findElement(By.cssSelector("select option:nth-child(2)")).click();
             }
+            //добавление товаров в корзину
             driver.findElement(By.cssSelector("#box-product button")).click();
             wait.until(attributeContains(By.cssSelector("span.quantity"), "textContent", String.valueOf(i+1)));
             if (i == 2) {
@@ -53,6 +55,10 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
                 }
             }
         }
+        //проверка что в корзине 3 товара
+        assertEquals(Integer.parseInt(driver.findElement(By.cssSelector("span.quantity")).getAttribute("textContent")), 3);
+
+        //удаление товаров из корзины
         driver.findElement(By.cssSelector("#cart a.link")).click();
         driver.findElement(By.cssSelector("li.shortcut:nth-child(1) a")).click();
         for (int j = 0; j < n; j++) {
@@ -60,7 +66,13 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
             driver.findElement(By.name("remove_cart_item")).click();
             wait.until(stalenessOf(table));
         }
-        }
+
+        driver.get("http://localhost/litecart/en/");
+
+        //проверка, что корзина пуста
+        assertEquals(Integer.parseInt(driver.findElement(By.cssSelector("span.quantity")).getAttribute("textContent")), 0);
+
+    }
 
 
     public boolean isElementPresent(By locator) {
